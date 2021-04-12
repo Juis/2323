@@ -10,6 +10,13 @@ class AuthService {
 	async login({ request, response, auth }) {
 		try {
 			const { email, password } = request.only(['email', 'password'])
+
+			const user = await User.query().where('email', email).first()
+
+			if (!user) {
+				return response.status(401).send({ message: "User not found." })
+			}
+
 			const data = await auth.withRefreshToken().attempt(email, password)
 			return response.ok(data)
 		} catch (error) {
@@ -53,14 +60,18 @@ class AuthService {
 
 			const decrypted = Encryption.decrypt(refreshToken)
 
-			if (decrypted != null) {
-				const isToken = await Token.findBy("token", decrypted)
-
-				isToken.delete()
-				return response.ok({ message: "Logged off successfully." })
-			} else {
-				return response.status(500).send({ message: "Invalid token." })
+			if (!decrypted) {
+				return response.status(400).send({ message: "Invalid token." })
 			}
+
+			const isToken = await Token.findBy("token", decrypted)
+
+			if (!isToken) {
+				return response.status(400).send({ message: "Invalid token." })
+			}
+
+			isToken.delete()
+			return response.ok({ message: "Logged off successfully." })
 		} catch (error) {
 			return response.status(error.status).send(error)
 		}

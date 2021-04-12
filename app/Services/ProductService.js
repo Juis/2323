@@ -25,7 +25,7 @@ class ProductService {
 			product.published_at = published_at
 
 			await product.save()
-			return response.ok({ message: "Successfully registered." })
+			return response.ok(product)
 		} catch (error) {
 			return response.status(error.status).send(error)
 		}
@@ -63,6 +63,8 @@ class ProductService {
 					"published_at": published_at
 				})
 
+			const product = await Product.query().where("id", id).first()
+
 			return response.ok(product)
 		} catch (error) {
 			return response.status(error.status).send(error)
@@ -72,7 +74,7 @@ class ProductService {
 	async findOne({ params, request, response }) {
 		try {
 			const { id } = params
-			const product = await Product.query().where('id', id).with('images').fetch()
+			const product = await Product.query().where('id', id).with('images').first()
 			return response.ok(product)
 		} catch (error) {
 			return response.status(error.status).send(error)

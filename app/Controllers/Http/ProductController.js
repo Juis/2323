@@ -1,6 +1,7 @@
 'use strict'
 
 const ProductService = make('App/Services/ProductService')
+const Common = make('App/Common/Index')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -41,12 +42,10 @@ class ProductController {
     try {
       let { id } = params
 
-      id = parseInt(id)
-      if (id && !isNaN(id)) {
+      const validate = await Common.validateId({ id, response })
+      if (validate) {
         const data = await ProductService.findOne({ params, request, response })
         return data
-      } else {
-        return response.status(500).send({ message: 'Id accepts integer only and you must provide as id.' })
       }
     } catch (error) {
       return response.status(error.status).send(error)
@@ -82,12 +81,10 @@ class ProductController {
     try {
       let { id } = params
 
-      id = parseInt(id)
-      if (id && !isNaN(id)) {
+      const validate = await Common.validateId({ id, response })
+      if (validate) {
         const data = await ProductService.update({ params, request, response })
         return data
-      } else {
-        return response.status(500).send({ message: 'Id accepts integer only and you must provide as id.' })
       }
     } catch (error) {
       return response.status(error.status).send(error)
@@ -106,12 +103,10 @@ class ProductController {
     try {
       let { id } = params
 
-      id = parseInt(id)
-      if (id && !isNaN(id)) {
+      const validate = await Common.validateId({ id, response })
+      if (validate) {
         const data = await ProductService.delete({ params, request, response })
         return data
-      } else {
-        return response.status(500).send({ message: 'Id accepts integer only and you must provide as id.' })
       }
     } catch (error) {
       return response.status(error.status).send(error)

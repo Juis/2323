@@ -1,6 +1,7 @@
 'use strict'
 
 const GenericService = make('App/Services/GenericService')
+const Common = make('App/Common/Index')
 
 class GenericController {
 	/**
@@ -15,12 +16,10 @@ class GenericController {
 		try {
 			let { id } = params
 
-			id = parseInt(id)
-			if (id && !isNaN(id)) {
+			const validate = await Common.validateId({ id, response })
+			if (validate) {
 				const data = await GenericService.imagesUpload({ params, request, response })
 				return data
-			} else {
-				return response.status(500).send({ message: 'Id accepts integer only and you must provide as id.' })
 			}
 		} catch (error) {
 			return response.status(error.status).send(error)

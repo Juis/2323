@@ -46,7 +46,7 @@ class AuthController {
 
 	/**
 	 * Logout
-	 * POST logout
+	 * POST auht/logout
 	 *
 	 * @param {object} ctx
 	 * @param {Request} ctx.request
@@ -62,8 +62,8 @@ class AuthController {
 	}
 
 	/**
-	 * Logout
-	 * POST logout
+	 * Confirm Register
+	 * POST auht/logout
 	 *
 	 * @param {object} ctx
 	 * @param {Request} ctx.request
@@ -73,12 +73,30 @@ class AuthController {
 		try {
 			const { token } = params
 
-			if (token) {
-				const data = await AuthService.confirmRegister({ params, request, response, auth })
-				return data
-			} else {
+			if (!token) {
 				return response.status(500).send({ message: 'You must provide a token.' })
 			}
+
+			const data = await AuthService.confirmRegister({ params, request, response, auth })
+			return data
+		} catch (error) {
+			return response.status(error.status).send(error)
+		}
+	}
+
+	/**
+	 * Profile
+	 * GET auth/profile
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 */
+	async profile({ params, request, response, auth }) {
+		try {
+			const user = auth.getUser()
+
+			return user
 		} catch (error) {
 			return response.status(error.status).send(error)
 		}

@@ -1,6 +1,7 @@
 'use strict'
 
 const Images = use('App/Models/Image')
+const Product = use('App/Models/Product')
 const Drive = use('Drive')
 
 class GenericService {
@@ -8,6 +9,11 @@ class GenericService {
 	async imagesUpload({ params, request, response }) {
 		try {
 			const { id, type } = params
+
+			const product = await Product.query().where("id", id).first()
+			if (!product) {
+				return response.status(400).send({ message: 'Product not found.' })
+			}
 
 			await request.multipart.file('images', {
 				types: ['jpeg', 'jpg', 'png'],
@@ -21,7 +27,7 @@ class GenericService {
 					"ACL": acl
 				})
 
-				if (type === 'product') {
+				if (type === 'product' && product) {
 					await Images.create({
 						key,
 						url,

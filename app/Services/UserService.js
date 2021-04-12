@@ -17,7 +17,7 @@ class UserService {
 		try {
 			const { id } = params
 
-			const user = await User.findOrFail(id)
+			const user = await User.query().where("id", id).first()
 
 			return response.ok(user)
 		} catch (error) {
@@ -37,7 +37,7 @@ class UserService {
 
 			await user.save()
 
-			return response.ok({ message: "Successfully registered." })
+			return response.ok(user)
 		} catch (error) {
 			return response.status(error.status).send(error)
 		}
@@ -68,7 +68,9 @@ class UserService {
 				.where("id", id)
 				.update({ "name": name })
 
-			return response.ok({ message: "Successfully updated" })
+			const user = await User.query().where("id", id).first()
+
+			return response.ok(user)
 		} catch (error) {
 			return response.status(error.status).send(error)
 		}

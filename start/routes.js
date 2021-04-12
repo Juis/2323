@@ -27,7 +27,8 @@ Route.post('auth/confirm/:token', 'AuthController.confirmRegister')
 
 Route.group(() => {
   /* Login */
-  Route.get('auth/logout', 'AuthController.logout').validator('AuthLogout')
+  Route.post('auth/logout', 'AuthController.logout').validator('AuthLogout')
+  Route.get('auth/profile', 'AuthController.profile')
 
   /* Product */
   Route.get('products', 'ProductController.findAll')
