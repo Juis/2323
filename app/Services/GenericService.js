@@ -8,8 +8,6 @@ class GenericService {
 
 	async imagesUpload({ params, request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { id, type } = params
 
 			const product = await Product.query().where("id", id).first()
@@ -48,8 +46,6 @@ class GenericService {
 
 	async imagesUdate({ request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { keys, type } = request.only(['keys', 'type'])
 			const msg = type === 'update' ? 'Update' : 'Removal'
 

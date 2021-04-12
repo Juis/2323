@@ -7,8 +7,6 @@ const Database = use('Database')
 class ProductService {
 	async findAll({ response, auth }) {
 		try {
-			await auth.check()
-
 			const products = await Product.query().with('images').fetch()
 			return products
 		} catch (error) {
@@ -18,8 +16,6 @@ class ProductService {
 
 	async findOne({ params, response, auth }) {
 		try {
-			await auth.check()
-
 			const { id } = params
 
 			const product = await Product.query().where('id', id).with('images').first()
@@ -35,8 +31,6 @@ class ProductService {
 
 	async register({ request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { name, description, price, published_at } = request.only(['name', 'description', 'price', 'published_at'])
 			const product = new Product()
 
@@ -54,8 +48,6 @@ class ProductService {
 
 	async delete({ params, response, auth }) {
 		try {
-			await auth.check()
-
 			const { id } = params
 
 			await Product
@@ -73,8 +65,6 @@ class ProductService {
 
 	async update({ params, request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { id } = params
 			let { name, description, price, published_at } = request.only(['name', 'description', 'price', 'published_at'])
 

@@ -5,8 +5,6 @@ const User = use('App/Models/User')
 class UserService {
 	async findAll({ request, response, auth }) {
 		try {
-			await auth.check()
-
 			const user = await User.query().fetch()
 
 			return response.ok(user)
@@ -17,8 +15,6 @@ class UserService {
 
 	async findOne({ params, request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { id } = params
 
 			const user = await User.query().where("id", id).first()
@@ -34,8 +30,6 @@ class UserService {
 
 	async register({ request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { name, email, password } = request.only(['name', 'email', 'password'])
 
 			const user = new User()
@@ -54,8 +48,6 @@ class UserService {
 
 	async delete({ params, request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { id } = params
 
 			await User
@@ -71,8 +63,6 @@ class UserService {
 
 	async update({ params, request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { id } = params
 			const { name } = request.only(['name'])
 

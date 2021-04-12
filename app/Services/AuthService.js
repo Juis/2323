@@ -56,8 +56,6 @@ class AuthService {
 
 	async logout({ request, response, auth }) {
 		try {
-			await auth.check()
-
 			const { refreshToken } = request.only(['refreshToken'])
 
 			const decrypted = Encryption.decrypt(refreshToken)
