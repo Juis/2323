@@ -37,7 +37,7 @@ adonis migration:run
 ### Address: **`localhost:3333`**
 
 
-### `POST /auth/login`: Auth Login
+### `POST /auth/login`: Auth - Login
 ```bash
 curl -X POST -i 'http://127.0.0.1:3333/auth/login' \
   -H "Content-Type: application/json" \
@@ -55,7 +55,7 @@ curl -X POST -i 'http://127.0.0.1:3333/auth/login' \
   }
   ```
 
-### `POST /auth/logout`: Auth Logout
+### `POST /auth/logout`: Auth - Logout
 ```bash
 curl -X POST -i 'http://127.0.0.1:3333/auth/logout' \
   -H "Content-Type: application/json" \
@@ -73,7 +73,7 @@ curl -X POST -i 'http://127.0.0.1:3333/auth/logout' \
   }
   ```
   
-### `POST /auth/confirm/:token`: Auth Confirm
+### `POST /auth/confirm/:token`: Auth - Confirm
 ```bash
 curl -X POST -i 'http://127.0.0.1:3333/auth/confirm/bea8e70d5989b37cc2e5d53bae79f310gKAwe/SafTyOo8uVy8XgKUr76opzpS4I8KTAaUOoi/0LLNmctSVUEG8kqBi6mED7' \
   -H "Content-Type: application/json" \
@@ -86,7 +86,7 @@ curl -X POST -i 'http://127.0.0.1:3333/auth/confirm/bea8e70d5989b37cc2e5d53bae79
   }
   ```
   
-### `POST /auth/register`: Auth Register
+### `POST /auth/register`: Auth - Register
 ```bash
 curl -X POST -i 'http://127.0.0.1:3333/auth/register' \
   -H "Content-Type: application/json" \
@@ -106,14 +106,14 @@ curl -X POST -i 'http://127.0.0.1:3333/auth/register' \
   }
   ```
   
-### `GET /auth/profile`: Auth Profile
+### `GET /auth/profile`: Auth - Profile
 ```bash
 curl -X GET -i 'http://127.0.0.1:3333/auth/profile' \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImlhdCI6MTYxODE3ODE0N30.UCwQFTzVFkneiUBL_haV2eaml7ey7vEa0g6OP-sddxI" \
 ```
 
-### `POST /users`: User Register
+### `POST /users`: Users - Register
 ```bash
 curl -X POST -i 'http://127.0.0.1:3333/auth/users' \
   -H "Content-Type: application/json" \
@@ -142,7 +142,7 @@ curl -X GET -i 'http://127.0.0.1:3333/auth/users' \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImlhdCI6MTYxODE3ODE0N30.UCwQFTzVFkneiUBL_haV2eaml7ey7vEa0g6OP-sddxI" \
 ```
 
-### `GET /users/:id`: User Find One
+### `GET /users/:id`: Users Find One
 ```bash
 curl -X GET -i 'http://127.0.0.1:3333/auth/users/1' \
   -H "Content-Type: application/json" \
@@ -156,7 +156,7 @@ curl -X GET -i 'http://127.0.0.1:3333/auth/users/1' \
   }
   ```
   
-### `PUT /users/:id`: User Update
+### `PUT /users/:id`: Users - Update
 ```bash
 curl -X PUT -i 'http://127.0.0.1:3333/auth/users/1' \
   -H "Content-Type: application/json" \
@@ -181,7 +181,7 @@ curl -X PUT -i 'http://127.0.0.1:3333/auth/users/1' \
   }
   ```
   
-### `DELETE /users/:id`: User Delete
+### `DELETE /users/:id`: Users - Delete
 ```bash
 curl -X DELETE -i 'http://127.0.0.1:3333/auth/users/1' \
   -H "Content-Type: application/json" \
@@ -194,7 +194,7 @@ curl -X DELETE -i 'http://127.0.0.1:3333/auth/users/1' \
   }
   ```
   
-### `POST /products`: Products Register
+### `POST /products`: Products - Register
 ```bash
 curl -X POST -i 'http://127.0.0.1:3333/auth/products' \
   -H "Content-Type: application/json" \
@@ -225,7 +225,7 @@ curl -X GET -i 'http://127.0.0.1:3333/auth/products' \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImlhdCI6MTYxODE3ODE0N30.UCwQFTzVFkneiUBL_haV2eaml7ey7vEa0g6OP-sddxI" \
 ```
 
-### `GET /products/:id`: Products Find One
+### `GET /products/:id`: Products - Find One
 ```bash
 curl -X GET -i 'http://127.0.0.1:3333/auth/products/1' \
   -H "Content-Type: application/json" \
@@ -239,7 +239,7 @@ curl -X GET -i 'http://127.0.0.1:3333/auth/products/1' \
   }
   ```
   
-### `PUT /products/:id`: Products Update
+### `PUT /products/:id`: Products - Update
 ```bash
 curl -X PUT -i 'http://127.0.0.1:3333/auth/products/1' \
   -H "Content-Type: application/json" \
@@ -269,7 +269,7 @@ curl -X PUT -i 'http://127.0.0.1:3333/auth/products/1' \
   }
   ```
   
-### `DELETE /products/:id`: Products Delete
+### `DELETE /products/:id`: Products - Delete
 ```bash
 curl -X DELETE -i 'http://127.0.0.1:3333/auth/products/1' \
   -H "Content-Type: application/json" \
@@ -300,7 +300,7 @@ curl -X POST -i 'http://127.0.0.1:3333/auth/upload/product/1' \
   }
   ```
 
-### `PUT /upload/`: Upload Update
+### `PUT /upload/`: Upload - Update
 ```bash
 curl -X PUT -i 'http://127.0.0.1:3333/auth/upload/' \
   -H "Content-Type: application/json" \
@@ -323,7 +323,7 @@ curl -X PUT -i 'http://127.0.0.1:3333/auth/upload/' \
   }
   ```
   
-### `DELETE /upload/`: Upload Delete
+### `DELETE /upload/`: Upload - Delete
 ```bash
 curl -X DELETE -i 'http://127.0.0.1:3333/auth/upload/' \
   -H "Content-Type: application/json" \
