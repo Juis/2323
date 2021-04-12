@@ -56,6 +56,8 @@ class AuthService {
 
 	async logout({ request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { refreshToken } = request.only(['refreshToken'])
 
 			const decrypted = Encryption.decrypt(refreshToken)
@@ -77,10 +79,14 @@ class AuthService {
 		}
 	}
 
-	async confirmRegister({ params, request, response, auth }) {
+	async confirmRegister({ params, response }) {
 		try {
 			const { token } = params
-			const { uid } = Decode(token)
+			const { uid } = await Decode(token)
+
+			if (!uid) {
+				return response.status(400).send({ message: "Invalid token." })
+			}
 
 			await User
 				.query()

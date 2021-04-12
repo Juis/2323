@@ -3,8 +3,10 @@
 const User = use('App/Models/User')
 
 class UserService {
-	async findAll({ request, response }) {
+	async findAll({ request, response, auth }) {
 		try {
+			await auth.check()
+
 			const user = await User.query().fetch()
 
 			return response.ok(user)
@@ -13,11 +15,16 @@ class UserService {
 		}
 	}
 
-	async findOne({ params, request, response }) {
+	async findOne({ params, request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { id } = params
 
 			const user = await User.query().where("id", id).first()
+			if (!user) {
+				return response.status(400).send({ message: "No records found." })
+			}
 
 			return response.ok(user)
 		} catch (error) {
@@ -25,8 +32,10 @@ class UserService {
 		}
 	}
 
-	async register({ request, response }) {
+	async register({ request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { name, email, password } = request.only(['name', 'email', 'password'])
 
 			const user = new User()
@@ -43,8 +52,10 @@ class UserService {
 		}
 	}
 
-	async delete({ params, request, response }) {
+	async delete({ params, request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { id } = params
 
 			await User
@@ -58,18 +69,21 @@ class UserService {
 		}
 	}
 
-	async update({ params, request, response }) {
+	async update({ params, request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { id } = params
 			const { name } = request.only(['name'])
 
-			await User
-				.query()
-				.where("id", id)
-				.update({ "name": name })
+			let user = await User.query().where("id", id).first()
+			if (!user) {
+				return response.status(400).send({ message: "User not found." })
+			}
 
-			const user = await User.query().where("id", id).first()
+			const data = await User.query().where("id", id).update({ "name": name })
 
+			user = await User.query().where("id", id).first()
 			return response.ok(user)
 		} catch (error) {
 			return response.status(error.status).send(error)

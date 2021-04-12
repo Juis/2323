@@ -69,7 +69,7 @@ class AuthController {
 	 * @param {Request} ctx.request
 	 * @param {Response} ctx.response
 	 */
-	async confirmRegister({ params, request, response, auth }) {
+	async confirmRegister({ params, response }) {
 		try {
 			const { token } = params
 
@@ -77,7 +77,7 @@ class AuthController {
 				return response.status(500).send({ message: 'You must provide a token.' })
 			}
 
-			const data = await AuthService.confirmRegister({ params, request, response, auth })
+			const data = await AuthService.confirmRegister({ params, response })
 			return data
 		} catch (error) {
 			return response.status(error.status).send(error)
@@ -92,7 +92,7 @@ class AuthController {
 	 * @param {Request} ctx.request
 	 * @param {Response} ctx.response
 	 */
-	async profile({ params, request, response, auth }) {
+	async profile({ response, auth }) {
 		try {
 			const user = auth.getUser()
 

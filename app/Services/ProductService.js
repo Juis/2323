@@ -5,8 +5,10 @@ const Images = use('App/Models/Image')
 const Database = use('Database')
 
 class ProductService {
-	async findAll({ request, response }) {
+	async findAll({ response, auth }) {
 		try {
+			await auth.check()
+
 			const products = await Product.query().with('images').fetch()
 			return products
 		} catch (error) {
@@ -14,8 +16,27 @@ class ProductService {
 		}
 	}
 
-	async register({ request, response }) {
+	async findOne({ params, response, auth }) {
 		try {
+			await auth.check()
+
+			const { id } = params
+
+			const product = await Product.query().where('id', id).with('images').first()
+			if (!product) {
+				return response.status(400).send({ message: "No records found." })
+			}
+
+			return response.ok(product)
+		} catch (error) {
+			return response.status(error.status).send(error)
+		}
+	}
+
+	async register({ request, response, auth }) {
+		try {
+			await auth.check()
+
 			const { name, description, price, published_at } = request.only(['name', 'description', 'price', 'published_at'])
 			const product = new Product()
 
@@ -31,8 +52,10 @@ class ProductService {
 		}
 	}
 
-	async delete({ params, request, response }) {
+	async delete({ params, response, auth }) {
 		try {
+			await auth.check()
+
 			const { id } = params
 
 			await Product
@@ -48,10 +71,17 @@ class ProductService {
 		}
 	}
 
-	async update({ params, request, response }) {
+	async update({ params, request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { id } = params
 			let { name, description, price, published_at } = request.only(['name', 'description', 'price', 'published_at'])
+
+			let product = await Product.query().where("id", id).first()
+			if (!product) {
+				return response.status(400).send({ message: "Product not found." })
+			}
 
 			await Product
 				.query()
@@ -63,18 +93,7 @@ class ProductService {
 					"published_at": published_at
 				})
 
-			const product = await Product.query().where("id", id).first()
-
-			return response.ok(product)
-		} catch (error) {
-			return response.status(error.status).send(error)
-		}
-	}
-
-	async findOne({ params, request, response }) {
-		try {
-			const { id } = params
-			const product = await Product.query().where('id', id).with('images').first()
+			product = await Product.query().where("id", id).first()
 			return response.ok(product)
 		} catch (error) {
 			return response.status(error.status).send(error)

@@ -6,8 +6,10 @@ const Drive = use('Drive')
 
 class GenericService {
 
-	async imagesUpload({ params, request, response }) {
+	async imagesUpload({ params, request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { id, type } = params
 
 			const product = await Product.query().where("id", id).first()
@@ -40,12 +42,14 @@ class GenericService {
 
 			return response.ok({ message: 'Upload performed successfully.' })
 		} catch (error) {
-			return response.status(error.status).send({ message: 'Could not upload.' })
+			return response.status(error.status).send(error)
 		}
 	}
 
-	async imagesUdate({ params, request, response }) {
+	async imagesUdate({ request, response, auth }) {
 		try {
+			await auth.check()
+
 			const { keys, type } = request.only(['keys', 'type'])
 			const msg = type === 'update' ? 'Update' : 'Removal'
 
@@ -56,7 +60,7 @@ class GenericService {
 
 			return response.ok({ message: `${msg} performed successfully.` })
 		} catch (error) {
-			return response.status(error.status).send({ message: 'Could not upload. ' })
+			return response.status(error.status).send(error)
 		}
 	}
 }
