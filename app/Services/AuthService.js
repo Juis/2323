@@ -82,6 +82,10 @@ class AuthService {
 			const { token } = params
 			const { uid } = await Decode(token)
 
+			if (!token) {
+				return response.status(400).send("You must provide a token.")
+			}
+
 			if (!uid) {
 				return response.status(400).send({ message: "Invalid token." })
 			}

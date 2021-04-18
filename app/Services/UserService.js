@@ -17,6 +17,10 @@ class UserService {
 		try {
 			const { id } = params
 
+			if (isNaN(id)) {
+				return response.status(400).send("Id accepts integer only.")
+			}
+
 			const user = await User.query().where("id", id).first()
 			if (!user) {
 				return response.status(400).send({ message: "No records found." })
@@ -50,6 +54,10 @@ class UserService {
 		try {
 			const { id } = params
 
+			if (isNaN(id)) {
+				return response.status(400).send("Id accepts integer only.")
+			}
+
 			await User
 				.query()
 				.where("id", id)
@@ -65,6 +73,10 @@ class UserService {
 		try {
 			const { id } = params
 			const { name } = request.only(['name'])
+
+			if (isNaN(id)) {
+				return response.status(400).send("Id accepts integer only.")
+			}
 
 			let user = await User.query().where("id", id).first()
 			if (!user) {

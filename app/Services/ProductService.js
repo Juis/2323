@@ -18,6 +18,10 @@ class ProductService {
 		try {
 			const { id } = params
 
+			if (isNaN(id)) {
+				return response.status(400).send("Id accepts integer only.")
+			}
+
 			const product = await Product.query().where('id', id).with('images').first()
 			if (!product) {
 				return response.status(400).send({ message: "No records found." })
@@ -50,6 +54,10 @@ class ProductService {
 		try {
 			const { id } = params
 
+			if (isNaN(id)) {
+				return response.status(400).send("Id accepts integer only.")
+			}
+
 			await Product
 				.query()
 				.where("id", id)
@@ -67,6 +75,10 @@ class ProductService {
 		try {
 			const { id } = params
 			let { name, description, price, published_at } = request.only(['name', 'description', 'price', 'published_at'])
+
+			if (isNaN(id)) {
+				return response.status(400).send("Id accepts integer only.")
+			}
 
 			let product = await Product.query().where("id", id).first()
 			if (!product) {

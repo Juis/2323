@@ -10,6 +10,10 @@ class GenericService {
 		try {
 			const { id, type } = params
 
+			if (isNaN(id)) {
+				return response.status(400).send("Id accepts integer only.")
+			}
+
 			const product = await Product.query().where("id", id).first()
 			if (!product) {
 				return response.status(400).send({ message: 'Product not found.' })
