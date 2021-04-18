@@ -13,21 +13,20 @@ const Common = make('App/Common/Index')
 class UserController {
 	/**
 	 * Show a list of all user.
-	 * GET users
+	 * GET users/:page/:perPage
 	 *
 	 * @param {object} ctx
 	 * @param {Request} ctx.request
 	 * @param {Response} ctx.response
 	 * @param {View} ctx.view
 	 */
-	async findAll({ request, response, auth }) {
+	async findAll({ params, request, response, auth }) {
 		try {
-			const data = await UserService.findAll({ request, response, auth })
+			const data = await UserService.findAll({ params, request, response, auth })
 			return data
 		} catch (error) {
 			return response.status(error.status).send(error)
 		}
-
 	}
 
 	/**

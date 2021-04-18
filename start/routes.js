@@ -31,14 +31,14 @@ Route.group(() => {
   Route.get('auth/profile', 'AuthController.profile')
 
   /* Product */
-  Route.get('products', 'ProductController.findAll')
+  Route.get('products/:page/:perPage', 'ProductController.findAll')
   Route.get('products/:id', 'ProductController.findOne')
   Route.post('products', 'ProductController.register').validator('Product')
   Route.put('products/:id', 'ProductController.update').validator('Product')
   Route.delete('products/:id', 'ProductController.delete')
 
   /* User */
-  Route.get('users', 'UserController.findAll')
+  Route.get('users/:page/:perPage', 'UserController.findAll')
   Route.get('users/:id', 'UserController.findOne')
   Route.post('users', 'UserController.register').validator('UserRegister')
   Route.put('users/:id', 'UserController.update').validator('UserUpdate')

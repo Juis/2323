@@ -13,16 +13,16 @@ const Common = make('App/Common/Index')
 class ProductController {
   /**
    * Show a list of all products.
-   * GET products
+   * GET products/:page/:perPage
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async findAll({ request, response, auth }) {
+  async findAll({ params, request, response, auth }) {
     try {
-      const data = await ProductService.findAll({ request, response, auth })
+      const data = await ProductService.findAll({ params, request, response, auth })
       return data
     } catch (error) {
       return response.status(error.status).send(error)

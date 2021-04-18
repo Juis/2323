@@ -3,9 +3,23 @@
 const User = use('App/Models/User')
 
 class UserService {
-	async findAll({ request, response, auth }) {
+	async findAll({ params, request, response, auth }) {
 		try {
-			const user = await User.query().fetch()
+			let { page, perPage } = params
+
+			if (!page) {
+				return response.status(400).send("You must provide a page.")
+			} else if (isNaN(page)) {
+				return response.status(400).send("Page accepts integer only.")
+			}
+
+			if (!perPage) {
+				return response.status(400).send("You must provide a perPage.")
+			} else if (isNaN(perPage)) {
+				return response.status(400).send("PerPage accepts integer only.")
+			}
+
+			const user = await User.query().paginate(page, perPage)
 
 			return response.ok(user)
 		} catch (error) {

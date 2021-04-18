@@ -1,14 +1,27 @@
 'use strict'
 
 const Product = use('App/Models/Product')
-const Images = use('App/Models/Image')
-const Database = use('Database')
 
 class ProductService {
-	async findAll({ response, auth }) {
+	async findAll({ params, response, auth }) {
 		try {
-			const products = await Product.query().with('images').fetch()
-			return products
+			let { page, perPage } = params
+
+			if (!page) {
+				return response.status(400).send("You must provide a page.")
+			} else if (isNaN(page)) {
+				return response.status(400).send("Page accepts integer only.")
+			}
+
+			if (!perPage) {
+				return response.status(400).send("You must provide a perPage.")
+			} else if (isNaN(perPage)) {
+				return response.status(400).send("PerPage accepts integer only.")
+			}
+
+			const products = await Product.query().with('images').paginate(page, perPage)
+
+			return response.ok(products)
 		} catch (error) {
 			return response.status(error.status).send(error)
 		}
