@@ -3,7 +3,7 @@
 const User = use('App/Models/User')
 
 class UserService {
-	async findAll({ params, request, response, auth }) {
+	async findAll({ params, response }) {
 		try {
 			let { page, perPage } = params
 
@@ -27,7 +27,7 @@ class UserService {
 		}
 	}
 
-	async findOne({ params, request, response, auth }) {
+	async findOne({ params, response }) {
 		try {
 			const { id } = params
 
@@ -46,7 +46,7 @@ class UserService {
 		}
 	}
 
-	async register({ request, response, auth }) {
+	async register({ request, response }) {
 		try {
 			const { name, email, password } = request.only(['name', 'email', 'password'])
 
@@ -64,7 +64,7 @@ class UserService {
 		}
 	}
 
-	async delete({ params, request, response, auth }) {
+	async delete({ params, response }) {
 		try {
 			const { id } = params
 
@@ -83,7 +83,7 @@ class UserService {
 		}
 	}
 
-	async update({ params, request, response, auth }) {
+	async update({ params, request, response }) {
 		try {
 			const { id } = params
 			const { name } = request.only(['name'])

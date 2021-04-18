@@ -6,7 +6,7 @@ const Drive = use('Drive')
 
 class GenericService {
 
-	async imagesUpload({ params, request, response, auth }) {
+	async imagesUpload({ params, request, response }) {
 		try {
 			const { id, type } = params
 
@@ -48,7 +48,7 @@ class GenericService {
 		}
 	}
 
-	async imagesUdate({ request, response, auth }) {
+	async imagesUdate({ request, response }) {
 		try {
 			const { keys, type } = request.only(['keys', 'type'])
 			const msg = type === 'update' ? 'Update' : 'Removal'

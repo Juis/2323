@@ -3,7 +3,7 @@
 const Product = use('App/Models/Product')
 
 class ProductService {
-	async findAll({ params, response, auth }) {
+	async findAll({ params, response }) {
 		try {
 			let { page, perPage } = params
 
@@ -27,7 +27,7 @@ class ProductService {
 		}
 	}
 
-	async findOne({ params, response, auth }) {
+	async findOne({ params, response }) {
 		try {
 			const { id } = params
 
@@ -46,7 +46,7 @@ class ProductService {
 		}
 	}
 
-	async register({ request, response, auth }) {
+	async register({ request, response }) {
 		try {
 			const { name, description, price, published_at } = request.only(['name', 'description', 'price', 'published_at'])
 			const product = new Product()
@@ -63,7 +63,7 @@ class ProductService {
 		}
 	}
 
-	async delete({ params, response, auth }) {
+	async delete({ params, response }) {
 		try {
 			const { id } = params
 
@@ -84,7 +84,7 @@ class ProductService {
 		}
 	}
 
-	async update({ params, request, response, auth }) {
+	async update({ params, request, response }) {
 		try {
 			const { id } = params
 			let { name, description, price, published_at } = request.only(['name', 'description', 'price', 'published_at'])

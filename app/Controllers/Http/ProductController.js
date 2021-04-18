@@ -20,9 +20,9 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async findAll({ params, request, response, auth }) {
+  async findAll({ params, request, response }) {
     try {
-      const data = await ProductService.findAll({ params, request, response, auth })
+      const data = await ProductService.findAll({ params, request, response })
       return data
     } catch (error) {
       return response.status(error.status).send(error)
@@ -38,13 +38,13 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async findOne({ params, request, response, auth }) {
+  async findOne({ params, request, response }) {
     try {
       let { id } = params
 
       const validate = await Common.validateId({ id, response })
       if (validate) {
-        const data = await ProductService.findOne({ params, request, response, auth })
+        const data = await ProductService.findOne({ params, request, response })
         return data
       }
     } catch (error) {
@@ -60,9 +60,9 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async register({ request, response, auth }) {
+  async register({ request, response }) {
     try {
-      const data = await ProductService.register({ request, response, auth })
+      const data = await ProductService.register({ request, response })
       return data
     } catch (error) {
       return response.status(error.status).send(error)
@@ -77,13 +77,13 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response, auth }) {
+  async update({ params, request, response }) {
     try {
       let { id } = params
 
       const validate = await Common.validateId({ id, response })
       if (validate) {
-        const data = await ProductService.update({ params, request, response, auth })
+        const data = await ProductService.update({ params, request, response })
         return data
       }
     } catch (error) {
@@ -99,13 +99,13 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async delete({ params, request, response, auth }) {
+  async delete({ params, request, response }) {
     try {
       let { id } = params
 
       const validate = await Common.validateId({ id, response })
       if (validate) {
-        const data = await ProductService.delete({ params, request, response, auth })
+        const data = await ProductService.delete({ params, request, response })
         return data
       }
     } catch (error) {

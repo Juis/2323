@@ -12,13 +12,13 @@ class GenericController {
 	* @param {Request} ctx.request
 	* @param {Response} ctx.response
 	*/
-	async imagesUpload({ params, request, response, auth }) {
+	async imagesUpload({ params, request, response }) {
 		try {
 			let { id } = params
 
 			const validate = await Common.validateId({ id, response })
 			if (validate) {
-				const data = await GenericService.imagesUpload({ params, request, response, auth })
+				const data = await GenericService.imagesUpload({ params, request, response })
 				return data
 			}
 		} catch (error) {
@@ -35,9 +35,9 @@ class GenericController {
 	* @param {Request} ctx.request
 	* @param {Response} ctx.response
 	*/
-	async imagesUpdate({ request, response, auth }) {
+	async imagesUpdate({ request, response }) {
 		try {
-			const data = await GenericService.imagesUdate({ request, response, auth })
+			const data = await GenericService.imagesUdate({ request, response })
 			return data
 		} catch (error) {
 			return response.status(error.status).send(error)

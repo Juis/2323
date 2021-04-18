@@ -54,7 +54,7 @@ class AuthService {
 		}
 	}
 
-	async logout({ request, response, auth }) {
+	async logout({ request, response }) {
 		try {
 			const { refreshToken } = request.only(['refreshToken'])
 

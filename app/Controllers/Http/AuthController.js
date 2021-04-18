@@ -52,9 +52,9 @@ class AuthController {
 	 * @param {Request} ctx.request
 	 * @param {Response} ctx.response
 	 */
-	async logout({ request, response, auth }) {
+	async logout({ request, response }) {
 		try {
-			const data = await AuthService.logout({ request, response, auth })
+			const data = await AuthService.logout({ request, response })
 			return data
 		} catch (error) {
 			return response.status(error.status).send(error)

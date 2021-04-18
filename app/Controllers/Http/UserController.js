@@ -20,9 +20,9 @@ class UserController {
 	 * @param {Response} ctx.response
 	 * @param {View} ctx.view
 	 */
-	async findAll({ params, request, response, auth }) {
+	async findAll({ params, response }) {
 		try {
-			const data = await UserService.findAll({ params, request, response, auth })
+			const data = await UserService.findAll({ params, response })
 			return data
 		} catch (error) {
 			return response.status(error.status).send(error)
@@ -38,13 +38,13 @@ class UserController {
 	 * @param {Response} ctx.response
 	 * @param {View} ctx.view
 	 */
-	async findOne({ params, request, response, auth }) {
+	async findOne({ params, response }) {
 		try {
 			let { id } = params
 
 			const validate = await Common.validateId({ id, response })
 			if (validate) {
-				const data = await UserService.findOne({ params, request, response, auth })
+				const data = await UserService.findOne({ params, response })
 				return data
 			}
 		} catch (error) {
@@ -60,9 +60,9 @@ class UserController {
 	 * @param {Request} ctx.request
 	 * @param {Response} ctx.response
 	 */
-	async register({ params, request, response, auth }) {
+	async register({ request, response }) {
 		try {
-			const data = await UserService.register({ request, response, auth })
+			const data = await UserService.register({ request, response })
 			return data
 		} catch (error) {
 			return response.status(error.status).send(error)
@@ -77,13 +77,13 @@ class UserController {
 	 * @param {Request} ctx.request
 	 * @param {Response} ctx.response
 	 */
-	async update({ params, request, response, auth }) {
+	async update({ params, request, response }) {
 		try {
 			let { id } = params
 
 			const validate = await Common.validateId({ id, response })
 			if (validate) {
-				const data = await UserService.update({ params, request, response, auth })
+				const data = await UserService.update({ params, request, response })
 				return data
 			}
 		} catch (error) {
@@ -99,13 +99,13 @@ class UserController {
 	 * @param {Request} ctx.request
 	 * @param {Response} ctx.response
 	 */
-	async delete({ params, request, response, auth }) {
+	async delete({ params, response }) {
 		try {
 			let { id } = params
 
 			const validate = await Common.validateId({ id, response })
 			if (validate) {
-				const data = await UserService.delete({ params, request, response, auth })
+				const data = await UserService.delete({ params, response })
 				return data
 			}
 		} catch (error) {
